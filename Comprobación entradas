@@ -1,0 +1,75 @@
+
+const int parking_1 = 2;
+const int parking_2 = 3;
+const int parking_3 = 4;
+const int parking_4 = A0;
+const int parking_5 = A1;
+const int puls_1 = 7;
+const int puls_2 = 8;
+const int sens_in_1 = 9;
+const int sens_in_2 = 10;
+const int sens_out_1 = 11;
+const int sens_out_2 = 12;
+const int pinservo1 = 5;
+const int pinservo2 = 6;
+
+
+int varking_1 = HIGH;
+int varking_2 = HIGH;
+int varking_3 = HIGH;
+int varking_4 = HIGH;
+int varking_5 = HIGH;
+int varpuls_1 = HIGH;
+int varpuls_2 = HIGH;
+int varsens_in_1 = HIGH;
+int varsens_in_2 = HIGH;
+int varsens_out_1 = HIGH;
+int varsens_out_2 = HIGH;
+
+void setup() {
+
+  Serial.begin(9600);
+  pinMode(parking_1, INPUT_PULLUP);
+  pinMode(parking_2, INPUT_PULLUP);
+  pinMode(parking_3, INPUT_PULLUP);
+  pinMode(parking_4, INPUT_PULLUP);
+  pinMode(parking_5, INPUT_PULLUP);
+  pinMode(puls_1, INPUT_PULLUP);
+  pinMode(puls_2, INPUT_PULLUP);
+  pinMode(sens_in_1, INPUT_PULLUP);
+  pinMode(sens_in_2, INPUT_PULLUP);
+  pinMode(sens_out_1, INPUT_PULLUP);
+  pinMode(sens_out_2, INPUT_PULLUP);
+
+}
+
+void loop() {
+
+ 
+  varking_1 = digitalRead(parking_1);
+  varking_2 = digitalRead(parking_2);
+  varking_3 = digitalRead(parking_3);
+  varking_4 = digitalRead(parking_4);
+  varking_5 = digitalRead(parking_5);
+  varpuls_1 = digitalRead(puls_1);
+  varpuls_2 = digitalRead(puls_2);
+  varsens_in_1 = digitalRead(sens_in_1);
+  varsens_in_2 = digitalRead(sens_in_2);
+  varsens_out_1 = digitalRead(sens_out_1);
+  varsens_out_2 = digitalRead(sens_out_2);
+
+  Serial.println("++++++");
+  Serial.println(varking_1);
+  Serial.println(varking_2);
+  Serial.println(varking_3);
+  Serial.println(varking_4);
+  Serial.println(varking_5);
+  Serial.println(varpuls_1);
+  Serial.println(varpuls_2);
+  Serial.println(varsens_in_1);
+  Serial.println(varsens_in_2);
+  Serial.println(varsens_out_1);
+  Serial.println(varsens_out_2);
+  Serial.println("----------");
+  delay(1000);
+}
