@@ -135,20 +135,20 @@ void loop() {
     
     varpos2 = 0;
   }
-  if (varking_1 = HIGH) {
+  if (varking_1 == HIGH) {
     parkingfree = parkingfree + 1;
   }
-  if (varking_2 = HIGH) {
+  if (varking_2 == HIGH) {
     parkingfree = parkingfree + 1;
   }
-  if (varking_3 = HIGH ) {
+  if (varking_3 == HIGH ) {
     parkingfree = parkingfree + 1;
   }
 
-  if (varking_4 = HIGH ) {
+  if (varking_4 == HIGH ) {
     parkingfree = parkingfree + 1;
   }
-  if (varking_5 = HIGH ) {
+  if (varking_5 == HIGH ) {
     parkingfree = parkingfree + 1;
   }
   lcd.setCursor(4, 0);
