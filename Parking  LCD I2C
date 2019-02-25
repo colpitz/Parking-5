@@ -1,4 +1,5 @@
 
+
 #include <Servo.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -36,10 +37,9 @@ int parkingfree = 0;
 int parkingtaken = 0;
 int parkingtotal = 5;
 
-Servo servo1;
-Servo servo2;
+Servo servo1, servo2;
 
-LiquidCrystal_I2C lcd(0x26, 16, 2); // set the LCD address to 0x__ for a 16 chars and 2 line display
+LiquidCrystal_I2C lcd(0x26, 16, 2); // LCD address to 0x__ for a 16 chars and 2 line display
 
 void setup() {
 
@@ -54,25 +54,22 @@ void setup() {
   pinMode(sens_in_2, INPUT_PULLUP);
   pinMode(sens_out_1, INPUT_PULLUP);
   pinMode(sens_out_2, INPUT_PULLUP);
-
+  
+  servo1.attach(pinservo1);
+  servo2.attach(pinservo2);
+  
   lcd.init();
   lcd.backlight();
 
   lcd.setCursor(4, 0);
   lcd.print("Parking");
-  lcd.setCursor(2, 3);
+  lcd.setCursor(2, 1);
   lcd.print("Santa Lucia");
 
-  delay(7000);
+  delay(2000);
   lcd.clear();
 
-  servo1.attach(pinservo1);
-  servo2.attach(pinservo2);
-
-  servo1.write(pinservo1);
-  servo2.write(pinservo2);
-
-  Serial.begin(9600);
+  Serial.begin(9600); //para ver las variables en el monitor serie
 }
 
 void loop() {
@@ -92,78 +89,88 @@ void loop() {
   varsens_out_1 = digitalRead(sens_out_1);
   varsens_out_2 = digitalRead(sens_out_2);
 
-  if (varpuls_1 == LOW || varsens_in_1 == LOW) {
-
+  if (varpuls_1 == LOW && varsens_in_1 == LOW ) {  
+ Serial.print(55);
     servo2.detach();
-    servo1.attach(5);
+    servo1.attach(pinservo1);
     servo1.write(90);
     
-    varpos1 = 1;
+    varpos1 = 1; // posicion arriba barrera 1
   }
 
-  if (varsens_in_2 == LOW || varpos1 == 1) {
-    
+  if (varsens_in_2 == LOW && varpos1 == 1 ) {      
     servo2.detach();
-    servo1.attach(5);
+    servo1.attach(pinservo1);
     servo1.write(0);
     
     varpos1 = 0;
   }
 
-  if (varpuls_2 == LOW || varsens_out_1 == LOW) {
+  if (varpuls_2 == LOW && varsens_out_1 == LOW) { 
 
     servo1.detach();
-    servo2.attach(6);
+    servo2.attach(pinservo2);
     servo2.write(0);
     varpos2 = 1;
   }
 
-  if (varsens_out_2 == LOW || varpos2 == 1) {
+  if (varsens_out_2 == LOW && varpos2 == 1) { 
     
     servo1.detach();
-    servo2.attach(6);
+    servo2.attach(pinservo2);
     servo2.write(90);
-    
     varpos2 = 0;
   }
-  if (varking_1 == HIGH) {
-    parkingfree = parkingfree + 1;
+  
+  if (varking_1 == LOW) {
+    parkingtaken = parkingtaken +1;
   }
-  if (varking_2 == HIGH) {
-    parkingfree = parkingfree + 1;
+  if (varking_2 == LOW) {
+    parkingtaken = parkingtaken +1;
   }
-  if (varking_3 == HIGH ) {
-    parkingfree = parkingfree + 1;
+  if (varking_3 == LOW) {
+    parkingtaken = parkingtaken +1;
   }
-
-  if (varking_4 == HIGH ) {
-    parkingfree = parkingfree + 1;
+  if (varking_4 == LOW) {
+    parkingtaken = parkingtaken +1;
   }
-  if (varking_5 == HIGH ) {
-    parkingfree = parkingfree + 1;
+  if (varking_5 == LOW) {
+    parkingtaken = parkingtaken +1;
   }
+ parkingfree = parkingtotal - parkingtaken; 
+  
   lcd.setCursor(4, 0);
   lcd.print("Free :");
-  lcd.setCursor(10, 0);
+  lcd.setCursor(11, 0);
   lcd.print(parkingfree);
-
-  parkingtaken = parkingtotal - parkingfree;
+ 
   lcd.setCursor(4, 1);
   lcd.print("Taken:");
-  lcd.setCursor(10, 1);
+  lcd.setCursor(11, 1);  
   lcd.print(parkingtaken);
 
   Serial.println("++++++");
+     Serial.print("parking_1 pin2 = ");
   Serial.println(varking_1);
+     Serial.print("parking_2 pin3 = ");
   Serial.println(varking_2);
+     Serial.print("parking_3 pin4 = ");
   Serial.println(varking_3);
+     Serial.print("parking_4 pin5 = ");
   Serial.println(varking_4);
+     Serial.print("parking_5 pin6 = ");
   Serial.println(varking_5);
+     Serial.print("puls_1 pin7 = ");
   Serial.println(varpuls_1);
+     Serial.print("puls_2 pin8 = ");
   Serial.println(varpuls_2);
+       Serial.print("sens_in_1 pin9 = ");
   Serial.println(varsens_in_1);
+       Serial.print("sens_in_2 pin10 = ");
   Serial.println(varsens_in_2);
+       Serial.print("sens_out_1 pin11 = ");
   Serial.println(varsens_out_1);
+       Serial.print("sens_uot_2 pin12 = ");
   Serial.println(varsens_out_2);
   Serial.println("----------");
   delay(2000);
