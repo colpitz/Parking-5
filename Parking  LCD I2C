@@ -1,10 +1,10 @@
 
 
-#include <Servo.h>
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
+#include <Servo.h> // Servo motor library
+#include <Wire.h>  // I2C library
+#include <LiquidCrystal_I2C.h>  //  LCD 16x2 I2C library
 
-const int parking_1 = 2;
+const int parking_1 = 2;  // set pin ports
 const int parking_2 = 3;
 const int parking_3 = 4;
 const int parking_4 = A0;
@@ -39,7 +39,7 @@ int parkingtotal = 5;
 
 Servo servo1, servo2;
 
-LiquidCrystal_I2C lcd(0x26, 16, 2); // LCD address to 0x__ for a 16 chars and 2 line display
+LiquidCrystal_I2C lcd(0x3E, 16, 2); // LCD address to 0x__ for a 16 chars and 2 line display
 
 void setup() {
 
@@ -68,6 +68,15 @@ void setup() {
 
   delay(2000);
   lcd.clear();
+  
+  servo2.detach(); // set down barrier 1
+  servo1.attach(pinservo1);
+  servo1.write(0);
+  delay(1000);
+  servo1.detach(); // set down barrier 2
+  servo2.attach(pinservo2);
+  servo2.write(90);  
+   
 
   Serial.begin(9600); //para ver las variables en el monitor serie
 }
@@ -90,7 +99,12 @@ void loop() {
   varsens_out_2 = digitalRead(sens_out_2);
 
   if (varpuls_1 == LOW && varsens_in_1 == LOW ) {  
- Serial.print(55);
+ Serial.print(55); //pruebas
+  Serial.print("--"); // Pruebas
+ Serial.print(pinservo1); //pruebas
+ Serial.print("--"); //pruebas
+  Serial.print(pinservo2); //pruebas
+  
     servo2.detach();
     servo1.attach(pinservo1);
     servo1.write(90);
@@ -98,7 +112,10 @@ void loop() {
     varpos1 = 1; // posicion arriba barrera 1
   }
 
-  if (varsens_in_2 == LOW && varpos1 == 1 ) {      
+  if (varsens_in_2 == LOW && varpos1 == 1 ) { 
+
+   Serial.print("-servo2-");  //pruebas
+  Serial.print(pinservo2);   //pruebas      
     servo2.detach();
     servo1.attach(pinservo1);
     servo1.write(0);
@@ -111,6 +128,7 @@ void loop() {
     servo1.detach();
     servo2.attach(pinservo2);
     servo2.write(0);
+    
     varpos2 = 1;
   }
 
@@ -145,33 +163,33 @@ void loop() {
   lcd.print(parkingfree);
  
   lcd.setCursor(4, 1);
-  lcd.print("Taken:");
-  lcd.setCursor(11, 1);  
+  lcd.print("Occupied:");
+  lcd.setCursor(13, 1);  
   lcd.print(parkingtaken);
 
   Serial.println("++++++");
-     Serial.print("parking_1 pin2 = ");
+     Serial.print("parking_1  pin2 = ");
   Serial.println(varking_1);
-     Serial.print("parking_2 pin3 = ");
+     Serial.print("parking_2  pin3 = ");
   Serial.println(varking_2);
-     Serial.print("parking_3 pin4 = ");
+     Serial.print("parking_3  pin4 = ");
   Serial.println(varking_3);
-     Serial.print("parking_4 pin5 = ");
+     Serial.print("parking_4  pin5 = ");
   Serial.println(varking_4);
-     Serial.print("parking_5 pin6 = ");
+     Serial.print("parking_5  pin6 = ");
   Serial.println(varking_5);
-     Serial.print("puls_1 pin7 = ");
+     Serial.print("puls_1       pin7 = ");
   Serial.println(varpuls_1);
-     Serial.print("puls_2 pin8 = ");
+     Serial.print("puls_2       pin8 = ");
   Serial.println(varpuls_2);
-       Serial.print("sens_in_1 pin9 = ");
+     Serial.print("sens_in_1      pin9 = ");
   Serial.println(varsens_in_1);
-       Serial.print("sens_in_2 pin10 = ");
+     Serial.print("sens_in_2     pin10 = ");
   Serial.println(varsens_in_2);
-       Serial.print("sens_out_1 pin11 = ");
+     Serial.print("sens_out_1    pin11 = ");
   Serial.println(varsens_out_1);
-       Serial.print("sens_uot_2 pin12 = ");
+     Serial.print("sens_uot_2    pin12 = ");
   Serial.println(varsens_out_2);
   Serial.println("----------");
-  delay(2000);
+  delay(500);
 }
