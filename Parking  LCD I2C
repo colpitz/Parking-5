@@ -77,7 +77,7 @@ void setup() {
   servo2.write(90);  
    
 
-  Serial.begin(9600); //para ver las variables en el monitor serie
+  Serial.begin(9600);         // set serial por to use serial monitor
 }
 
 void loop() {
@@ -159,7 +159,7 @@ void loop() {
   lcd.setCursor(13, 1);  
   lcd.print(parkingtaken);
 
-  Serial.println("++++++");    // these to test by serial monitor the inputs
+  Serial.println("++++++");    // these to test by "serial monitor" the inputs
      Serial.print("parking_1  pin2 = ");
   Serial.println(varking_1);
      Serial.print("parking_2  pin3 = ");
