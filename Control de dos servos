@@ -1,24 +1,26 @@
 //----------/////
 #include <Servo.h>
 Servo myservo1, myservo2;
+int servoPin_1 = X; // replace "X" by pin number you use in servo 1
+int servoPin_2 = X; // replace "X" by pin number you use in servo 2
 
 void setup() {
-  myservo1.attach(9);
-  myservo2.attach(10);
+  myservo1.attach(servoPin_1);
+  myservo2.attach(servoPin_2);
 }
 
 void loop() {
   myservo2.detach();
-  myservo1.attach(9);
-  myservo1.write(70);
+  myservo1.attach(servoPin_1);
+  myservo1.write(0);
   delay(1000);
-  myservo1.write(120);
+  myservo1.write(180);
   delay(1000);
 
   myservo1.detach();
-  myservo2.attach(10);
-  myservo2.write(70);
+  myservo2.attach(servoPin_2);
+  myservo2.write(0);
   delay(1000);
-  myservo2.write(120);
+  myservo2.write(180);
   delay(1000);
 }
