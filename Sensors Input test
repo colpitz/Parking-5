@@ -1,17 +1,17 @@
 
-const int parking_1 = 2;
-const int parking_2 = 3;
-const int parking_3 = 4;
-const int parking_4 = A0;
-const int parking_5 = A1;
-const int puls_1 = 7;
-const int puls_2 = 8;
-const int sens_in_1 = 9;
-const int sens_in_2 = 10;
-const int sens_out_1 = 11;
-const int sens_out_2 = 12;
-const int pinservo1 = 5;
-const int pinservo2 = 6;
+const int parking_1 = X; //replace "X" by pin number you use in sensor inputs
+const int parking_2 = X;
+const int parking_3 = X;
+const int parking_4 = X;
+const int parking_5 = X;
+const int puls_1 = X;
+const int puls_2 = X;
+const int sens_in_1 = X;
+const int sens_in_2 = X;
+const int sens_out_1 = X;
+const int sens_out_2 = X;
+const int pinservo1 = X;
+const int pinservo2 = X;
 
 
 int varking_1 = HIGH;
